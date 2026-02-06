@@ -33,4 +33,16 @@ public class DepartmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Id não encontrado"));
         return new DepartmentDTO(department);
     }
+
+    public DepartmentDTO inserir(DepartmentDTO dto) {
+        Department entity = new Department();
+        entity.setId(UUID.randomUUID());
+        copyDtoToEntity(dto, entity);
+        entity = departmentRepository.save(entity);
+        return new DepartmentDTO(entity);
+    }
+
+    private void copyDtoToEntity(DepartmentDTO dto, Department entity) {
+        entity.setName(dto.getName());
+    }
 }
