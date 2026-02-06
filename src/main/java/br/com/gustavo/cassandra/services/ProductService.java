@@ -32,6 +32,7 @@ public class ProductService {
 
     public List<ProductDTO> findByDepartment(String department) {
         List<Product> list;
+        // buscando todos os produtos quando departamento não for informado
         if ("".equals(department)) {
             list = productRepository.findAll();
         }
