@@ -38,4 +38,10 @@ public class DepartmentBusiness {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DepartmentDTO> atualizar(@PathVariable UUID id, @RequestBody DepartmentDTO dto) {
+        dto = departmentService.atualizar(id, dto);
+        return ResponseEntity.ok(dto);
+    }
 }
