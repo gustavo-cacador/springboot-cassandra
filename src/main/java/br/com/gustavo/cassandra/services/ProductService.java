@@ -41,4 +41,15 @@ public class ProductService {
         }
         return list.stream().map(ProductDTO::new).collect(Collectors.toList());
     }
+
+    public List<ProductDTO> findByDescription(String text) {
+        List<Product> list;
+        if ("".equals(text)) {
+            list = productRepository.findAll();
+        }
+        else {
+            list = productRepository.findByDescription("%"+text+"%");
+        }
+        return list.stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
 }
