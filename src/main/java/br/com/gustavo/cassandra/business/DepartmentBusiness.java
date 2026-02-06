@@ -44,4 +44,10 @@ public class DepartmentBusiness {
         dto = departmentService.atualizar(id, dto);
         return ResponseEntity.ok(dto);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        departmentService.deletarPorId(id);
+        return ResponseEntity.noContent().build();
+    }
 }
