@@ -6,8 +6,10 @@ import br.com.gustavo.cassandra.repositories.ProductRepository;
 import br.com.gustavo.cassandra.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -26,5 +28,16 @@ public class ProductService {
     private Product getById(UUID id) {
         Optional<Product> result = productRepository.findById(id);
         return result.orElseThrow(() -> new ResourceNotFoundException("Id não encontrado"));
+    }
+
+    public List<ProductDTO> findByDepartment(String department) {
+        List<Product> list;
+        if ("".equals(department)) {
+            list = productRepository.findAll();
+        }
+        else {
+            list = productRepository.findByDepartment(department);
+        }
+        return list.stream().map(ProductDTO::new).collect(Collectors.toList());
     }
 }

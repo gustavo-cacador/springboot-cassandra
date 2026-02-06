@@ -3,11 +3,9 @@ package br.com.gustavo.cassandra.business;
 import br.com.gustavo.cassandra.dto.ProductDTO;
 import br.com.gustavo.cassandra.services.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,5 +22,12 @@ public class ProductBusiness {
     public ResponseEntity<ProductDTO> buscarPorId(@PathVariable UUID id) {
         ProductDTO obj = productService.buscarPorId(id);
         return ResponseEntity.ok(obj);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> findByDepartment(
+            @RequestParam(name = "department", defaultValue = "") String department) {
+        List<ProductDTO> list = productService.findByDepartment(department);
+        return ResponseEntity.ok(list);
     }
 }
